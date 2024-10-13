@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym</title>
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="./css/all.min.css">
+    <!-- css -->
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg  fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fa-solid fa-dumbbell"></i></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="membersTap" href="#">Members</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="archiveTap" href="#">Archive</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container mt-5">
+            <h1 class="text-center">Power Gym</h1>
+            <div class="form d-none" id="membersForm">
+                <div class="row g-2">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" oninput="nameValidation()" id="name"
+                                placeholder="name@example.com">
+                            <label for="name">Full Name</label>
+                            <p class="text-danger mt-2 ms-2 d-none" id="wrongName">Member Name should be between 3 and
+                                20 string</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" oninput="priceValidation()" id="price" step="10"
+                                placeholder="name@example.com">
+                            <label for="price">Price</label>
+                            <p class="text-danger mt-2 ms-2 d-none" id="wrongPrice">price should be between 100 and
+                                99999 </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="notes" oninput="notesValidation()"
+                                placeholder="name@example.com">
+                            <label for="notes">notes</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" id="phoneNumber" oninput="phoneValidation()"
+                                placeholder="name@example.com">
+                            <label for="phoneNumber">Phone Number</label>
+                            <p class="text-danger mt-2 ms-2 d-none" id="wrongPhone">Enter a valid phone number</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="date ">
+                                    <input type="date" class="form-control " id="date" placeholder="yy"
+                                        oninput="dateValidation()">
+
+                                    <!-- <button class="btn btn-outline-info" onclick="getDate()">try</button> -->
+                                </div>
+                                <p class="text-danger mt-2 ms-2 d-none" id="wrongDate">Enter a date</p>
+                            </div>
+                            <div class="col-md-8">
+                                <select id="duration" class="form-select" disabled>
+                                </select>
+                                <!-- <button class="btn btn-outline-success" onclick="check()">try</button> -->
+                            </div>
+                        </div>
+
+
+                        <div class="form-check mt-2">
+                            <input class="form-check-input" type="checkbox" value="" id="Gym" checked name="Gym">
+                            <label class="form-check-label h5" for="Gym">
+                                Gym
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="Cardio" name="Cardio">
+                            <label class="form-check-label h5" for="Cardio">
+                                Cardio
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="card" checked name="card">
+                            <label class="form-check-label h5" for="card">
+                                Card
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+                <button type="button" id="submit" class="btn btn-info">Submit</button>
+                <button type="button" id="update" class="btn btn-warning d-none">Update</button>
+            </div>
+
+            <div class="members mt-4" id="membersTable">
+                <div class="all d-flex justify-content-between">
+                    <input type="search" id="search" oninput="search()" class="form-control w-25 mb-3"
+                        placeholder="search by name or phone">
+                    <div class="updateExpire d-flex mb-3">
+                        <input type="number" id="updateExpired" class="form-control "
+                            placeholder="Add days for ALL members">
+                        <button class="btn btn-outline-light ms-2" id="updateExpiredBtn">Add</button>
+                    </div>
+                </div>
+                <table class="table ">
+                    <thead>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>expired</th>
+                        <th>Price</th>
+                        <th>Notes</th>
+                        <th class="zero-width">Gym</th>
+                        <th class="zero-width">Cardio</th>
+                        <th>phone</th>
+                        <th class="zero-width ">Card</th>
+                        <th class="zero-width text-center">Options</th>
+                    </thead>
+                    <tbody id="data">
+                        <!-- <tr>
+                            <td><div>nowwwwww</div></td>
+                            <td><div>24/9/2023</div></td>
+                            <td><div>300</div></td>
+                            <td><div>Sale</div></td>
+                            <td><div><i class="fa-solid fa-check"></i></div></td>
+                            <td><div></div></td>
+                            <td><div>01032587465</div></td>
+                            <td><div><i class="fa-solid fa-check"></i></div></td>
+                            <td><div><button type="button" onclick="deleteMember(index)" class="btn btn-outline-danger">Delete</button></div></td>
+                        </tr> -->
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="archive mt-4 d-none" id="archiveSection">
+                <input type="search" id="searchArchive" oninput="searchArchive()" class="form-control w-25 mb-3"
+                    placeholder="search by name or phone">
+                <table class="table">
+                    <thead>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>expired</th>
+                        <th>Price</th>
+                        <th>Notes</th>
+                        <th class="zero-width">Gym</th>
+                        <th class="zero-width">Cardio</th>
+                        <th>phone</th>
+                        <th class="zero-width ">Card</th>
+                    </thead>
+                    <tbody id="archiveData">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+
+
+    <!-- ///////////////////////// -->
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>

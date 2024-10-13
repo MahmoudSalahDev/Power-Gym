@@ -1,0 +1,113 @@
+:root {
+
+}
+
+*::selection {
+
+}
+.zero-width{
+    width: 0px;
+}
+.center{
+    justify-content: center;
+}
+body {
+    background-image:linear-gradient(to right, rgba(0, 0, 0, 0.514) 0% 100%), url(../images/gym-bg.jpg) ;
+    background-size: cover;
+    background-attachment: fixed;
+    /* height: 200vh; */
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+/* start nav */
+nav{
+    background-color: rgba(0, 0, 0, 0.514);
+}
+nav .navbar-brand i{
+    color: white;
+    font-size: 30px;
+}
+nav.navbar .nav-item .nav-link,
+nav.navbar .nav-item .nav-link.active
+{
+    color: white ;
+    position: relative;
+}
+nav.navbar .nav-item .nav-link::before{
+    position: absolute;
+    content: "";
+    left: 8px;
+    bottom: 0;
+    background-color: #00a2fb;
+    width: 0;
+    height: 2px;
+    transition: width 0.3s;
+}
+nav.navbar .nav-item .nav-link:hover:before{
+    width: calc(100% - 16px);
+}
+nav.navbar .nav-item .nav-link.active::before{
+    width: calc(100% - 16px);
+}
+/* end nav */
+h1{
+    font-family: "Poppins", sans-serif;
+    font-size: 80px;
+    font-weight: 900;
+    color: transparent;
+    background-image: url(../images/mask.jpg);
+    background-size: cover;
+    background-position: center;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+/* start form  */
+.form .form-floating>.form-control{
+    height: auto;
+    min-height: auto;
+}
+.form.form-floating>.form-control:focus{
+    padding-top: 0;
+}
+.form .form-check label{
+    color: white;
+}
+.date{
+    display: flex;
+    column-gap: 10px;
+}
+.date input{
+    /* width: 170px; */
+}
+/* end form  */
+/* start members */
+.members table tbody tr td.green{
+    background-color: rgb(99, 255, 107);
+}
+.members table tbody tr td.red{
+    background-color: rgb(255, 127, 95);
+}
+.archive table tbody tr td.red{
+    background-color: rgb(235, 112, 81);
+}
+.members table tbody td div,
+.archive table tbody td div{
+    display: flex;
+    height: 41px;
+    width: 100%;
+    align-items: center;
+    align-content: center;
+}
+/* end members */
+
+
