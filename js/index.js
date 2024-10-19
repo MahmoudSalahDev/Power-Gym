@@ -277,10 +277,12 @@ function clearInputs() {
     memberPrice.value = "";
     memberNotes.value = "";
     memberphoneNumber.value = "";
+    date.value = "";
     memberName.classList.remove("is-valid");
     memberPrice.classList.remove("is-valid");
     memberNotes.classList.remove("is-valid");
     memberphoneNumber.classList.remove("is-valid");
+    date.classList.remove("is-valid");
 }
 
 function deleteMember(index) {
