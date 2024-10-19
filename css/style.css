@@ -91,6 +91,9 @@ h1{
 }
 /* end form  */
 /* start members */
+.members table{
+    /* direction: rtl; */
+}
 .members table tbody tr td.green{
     background-color: rgb(99, 255, 107);
 }

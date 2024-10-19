@@ -70,19 +70,19 @@ submitBtn.addEventListener("click", function () {
 })
 
 // automatic remove expired members after 7 days
-// for (let i = 0; i < membersList.length; i++) {
-//     let expireDlt = new Date(membersList[i].expire)
-//     expireDlt.setDate(new Date(membersList[i].expire).getDate() + 7)
-//     // console.log(expireDlt);
+for (let i = 0; i < membersList.length; i++) {
+    let expireDlt = new Date(membersList[i].expire)
+    expireDlt.setDate(new Date(membersList[i].expire).getDate() + 15)
+    // console.log(expireDlt);
 
-//     if (expireDlt < today) {
-//         archiveList.unshift(membersList[i]);
-//         // console.log(archiveList);
-//         localStorage.setItem("archiveList", JSON.stringify(archiveList));
-//         membersList.splice(i, 1);
-//         localStorage.setItem("Members", JSON.stringify(membersList));
-//     }
-// }
+    if (expireDlt < today) {
+        archiveList.unshift(membersList[i]);
+        // console.log(archiveList);
+        localStorage.setItem("archiveList", JSON.stringify(archiveList));
+        membersList.splice(i, 1);
+        localStorage.setItem("Members", JSON.stringify(membersList));
+    }
+}
 
 
 function addmember() {
@@ -109,7 +109,7 @@ function addmember() {
         membersList.unshift(member);
         localStorage.setItem("Members", JSON.stringify(membersList))
         displayMembers();
-        // clearInputs();
+        clearInputs();
         // console.log(localStorage.getItem("sites"));
         // console.log(membersList);
     }
@@ -293,7 +293,7 @@ function deleteMember(index) {
 };
 
 function nameValidation() {
-    var regex = /^[\w ]{3,20}$/;
+    var regex = /^.{3,30}$/;
     var myString = memberName.value;
     if (regex.test(myString)) {
         memberName.classList.add("is-valid");
