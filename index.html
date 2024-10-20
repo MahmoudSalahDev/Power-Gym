@@ -43,7 +43,7 @@
         </div>
     </nav>
     <main>
-        <div class="container mt-5">
+        <div class="container-fluid mt-5">
             <h1 class="text-center">Power Gym</h1>
             <div class="form " id="membersForm">
                 <div class="row g-2">
@@ -58,11 +58,11 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="number" class="form-control" oninput="priceValidation()" id="price" step="10"
+                            <input type="number" class="form-control" oninput="priceValidation()" min="0" id="price" step="10"
                                 placeholder="name@example.com">
                             <label for="price">Price</label>
                             <p class="text-danger mt-2 ms-2 d-none" id="wrongPrice">price should be between 100 and
-                                99999 </p>
+                                9999 </p>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -82,23 +82,22 @@
                     </div>
                     <div class="col-md-6">
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="date ">
-                                    <input type="date" class="form-control " id="date" placeholder="yy"
-                                        oninput="dateValidation()">
-
-                                    <!-- <button class="btn btn-outline-info" onclick="getDate()">try</button> -->
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="number" class="form-control" oninput="saunaValidation()" id="souna" min="0" step="1"
+                                        placeholder="name@example.com">
+                                    <label for="souna">Sauna</label>
                                 </div>
-                                <p class="text-danger mt-2 ms-2 d-none" id="wrongDate">Enter a date</p>
                             </div>
-                            <div class="col-md-8">
-                                <select id="duration" class="form-select" disabled>
-                                </select>
-                                <!-- <button class="btn btn-outline-success" onclick="check()">try</button> -->
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="number" class="form-control" oninput="steamValidation()" id="steam" min="0" step="1"
+                                        placeholder="name@example.com">
+                                    <label for="steam">Steam</label>
+                                </div>
                             </div>
+                            
                         </div>
-
-
                         <div class="form-check mt-2">
                             <input class="form-check-input" type="checkbox" value="" id="Gym" checked name="Gym">
                             <label class="form-check-label h5" for="Gym">
@@ -117,8 +116,30 @@
                                 Card
                             </label>
                         </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" checked value="" id="Group"  name="Group">
+                            <label class="form-check-label h5" for="Group">
+                                Group
+                            </label>
+                        </div>
                     </div>
-
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="date ">
+                                    <input type="date" class="form-control " id="date" placeholder="yy"
+                                        oninput="dateValidation()">
+                                    <!-- <button class="btn btn-outline-info" onclick="getDate()">try</button> -->
+                                </div>
+                                <p class="text-danger mt-2 ms-2 d-none" id="wrongDate">Enter a date</p>
+                            </div>
+                            <div class="col-md-8">
+                                <select id="duration" class="form-select" disabled>
+                                </select>
+                                <!-- <button class="btn btn-outline-success" onclick="check()">try</button> -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -127,6 +148,7 @@
 
                 <button type="button" id="submit" class="btn btn-info">Submit</button>
                 <button type="button" id="update" class="btn btn-warning d-none">Update</button>
+                <button type="button" id="updateDate" class="btn btn-success d-none">Update Date</button>
             </div>
 
             <div class="members mt-4" id="membersTable">
@@ -148,8 +170,11 @@
                         <th>Notes</th>
                         <th class="zero-width">Gym</th>
                         <th class="zero-width">Cardio</th>
+                        <th class="zero-width">Sauna</th>
+                        <th class="zero-width">Steam</th>
                         <th>phone</th>
                         <th class="zero-width ">Card</th>
+                        <th class="zero-width ">Group</th>
                         <th class="zero-width text-center">Options</th>
                     </thead>
                     <tbody id="data">
@@ -180,8 +205,11 @@
                         <th>Notes</th>
                         <th class="zero-width">Gym</th>
                         <th class="zero-width">Cardio</th>
+                        <th class="zero-width">sauna</th>
+                        <th class="zero-width">steam</th>
                         <th>phone</th>
                         <th class="zero-width ">Card</th>
+                        <th class="zero-width ">Group</th>
                     </thead>
                     <tbody id="archiveData">
                     </tbody>

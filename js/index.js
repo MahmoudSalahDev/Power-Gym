@@ -25,6 +25,9 @@ var body = document.getElementsByTagName('body')[0];
 let wrongDate = document.getElementById("wrongDate");
 let updateExpiredInput = document.getElementById("updateExpired");
 let updateExpiredBtn = document.getElementById("updateExpiredBtn");
+let sauna = document.getElementById("souna");
+let steam = document.getElementById("steam");
+
 
 membersTap.addEventListener("click", function () {
     body.style.backgroundImage = "linear-gradient(to right, rgba(0, 0, 0, 0.514) 0% 100%), url(./images/gym-bg.jpg)";
@@ -42,7 +45,7 @@ archiveTap.addEventListener("click", function () {
     displayArchive()
 
 })
-$(".nav-link").on("click",function(){
+$(".nav-link").on("click", function () {
     $(".nav-link").removeClass("active")
     $(this).addClass("active")
 })
@@ -87,7 +90,7 @@ for (let i = 0; i < membersList.length; i++) {
 
 function addmember() {
 
-    if (nameValidation() && priceValidation() && notesValidation() && phoneValidation() && dateValidation()) {
+    if (nameValidation() && priceValidation() && notesValidation() && phoneValidation() && dateValidation() && saunaValidation() && steamValidation()) {
         // let today = new Date()
 
         let currentDate = new Date(date.value);
@@ -102,9 +105,12 @@ function addmember() {
             price: memberPrice.value,
             notes: memberNotes.value,
             phoneNumber: memberphoneNumber.value,
+            sauna: sauna.value,
+            steam: steam.value,
             Gym: (Gym.checked == 1) ? `<i class="fa-solid fa-check"></i>` : "",
             cardio: (Cardio.checked == 1) ? `<i class="fa-solid fa-check"></i>` : "",
             card: (card.checked == 1) ? `<i class="fa-solid fa-check"></i>` : "",
+            Group: (Group.checked == 1) ? `<i class="fa-solid fa-check"></i>` : "",
         }
         membersList.unshift(member);
         localStorage.setItem("Members", JSON.stringify(membersList))
@@ -133,8 +139,11 @@ function displayArchive() {
                             <td class="red"><div>${archiveList[i].notes}</div></td>
                             <td class="red"><div class="center">${archiveList[i].Gym}</div></td>
                             <td class="red"><div class="center">${archiveList[i].cardio}</div></td>
+                            <td class="red"><div class="center">${archiveList[i].sauna}</div></td>
+                            <td class="red"><div class="center">${archiveList[i].steam}</div></td>
                             <td class="red"><div>${archiveList[i].phoneNumber}</div></td>
                             <td class="red"><div class="center">${archiveList[i].card}</div></td>
+                            <td class="red"><div class="center">${archiveList[i].Group}</div></td>
                         </tr>
                 `
     }
@@ -155,11 +164,15 @@ function displayMembers() {
                             <td class="red"><div>${membersList[i].notes}</div></td>
                             <td class="red"><div class="center">${membersList[i].Gym}</div></td>
                             <td class="red"><div class="center">${membersList[i].cardio}</div></td>
+                            <td class="red"><div class="center">${membersList[i].sauna}</div></td>
+                            <td class="red"><div class="center">${membersList[i].steam}</div></td>
                             <td class="red"><div>${membersList[i].phoneNumber}</div></td>
                             <td class="red"><div class="center">${membersList[i].card}</div></td>
+                            <td class="red"><div class="center">${membersList[i].Group}</div></td>
                             <td><div>
-                                    <button type="button" onclick="deleteMember(${i})" class="btn btn-outline-danger me-2">Delete</button>
-                                    <button type="button" onclick="setValuesForUpdate(${i})" class="btn btn-outline-warning">update</button>
+                                    <button type="button" onclick="deleteMember(${i})" class="btn btn-outline-danger me-1"><i class="fa-solid fa-trash-can"></i></button>
+                                    <button type="button" onclick="setValuesForUpdate(${i})" class="btn btn-outline-warning me-1">update</button>
+                                    <button type="button" onclick="setValuesForUpdateTime(${i})" class="btn btn-outline-success"><i class="fa-regular fa-clock"></i></button>
                                     </div></td>
                         </tr>
                         `
@@ -174,11 +187,15 @@ function displayMembers() {
                             <td class="green"><div>${membersList[i].notes}</div></td>
                             <td class="green"><div class="center">${membersList[i].Gym}</div></td>
                             <td class="green"><div class="center">${membersList[i].cardio}</div></td>
+                            <td class="green"><div class="center">${membersList[i].sauna}</div></td>
+                            <td class="green"><div class="center">${membersList[i].steam}</div></td>
                             <td class="green"><div>${membersList[i].phoneNumber}</div></td>
                             <td class="green"><div class="center">${membersList[i].card}</div></td>
+                            <td class="green"><div class="center">${membersList[i].Group}</div></td>
                             <td><div>
-                                    <button type="button" onclick="deleteMember(${i})" class="btn btn-outline-danger me-2">Delete</button>
-                                    <button type="button" onclick="setValuesForUpdate(${i})" class="btn btn-outline-warning">update</button>
+                                    <button type="button" onclick="deleteMember(${i})" class="btn btn-outline-danger me-1"><i class="fa-solid fa-trash-can"></i></button>
+                                    <button type="button" onclick="setValuesForUpdate(${i})" class="btn btn-outline-warning me-1">update</button>
+                                    <button type="button" onclick="setValuesForUpdateTime(${i})" class="btn btn-outline-success"><i class="fa-regular fa-clock"></i></button>
                                     </div></td>
                         </tr>
     `
@@ -202,8 +219,11 @@ function searchArchive() {
                             <td class="red"><div>${member.notes}</div></td>
                             <td class="red"><div class="center">${member.Gym}</div></td>
                             <td class="red"><div class="center">${member.cardio}</div></td>
+                            <td class="red"><div class="center">${member.sauna}</div></td>
+                            <td class="red"><div class="center">${member.steam}</div></td>
                             <td class="red"><div>${member.phoneNumber}</div></td>
                             <td class="red"><div class="center">${member.card}</div></td>
+                            <td class="red"><div class="center">${member.Group}</div></td>
                         </tr>
                     `
         }
@@ -216,19 +236,6 @@ function search() {
     var cartona = ``
     for (var i = 0; i < membersList.length; i++) {
         if (membersList[i].name.toLowerCase().includes(term) || membersList[i].phoneNumber.includes(term)) {
-            // cartona += `
-            //             <tr>
-            //                 <td><div>${membersList[i].name}</div></td>
-            //                 <td><div>${membersList[i].date}</div></td>
-            //                 <td><div>${membersList[i].price}</div></td>
-            //                 <td><div>${membersList[i].notes}</div></td>
-            //                 <td><div>${membersList[i].Gym}</div></td>
-            //                 <td><div>${membersList[i].cardio}</div></td>
-            //                 <td><div>${membersList[i].phoneNumber}</div></td>
-            //                 <td><div>${membersList[i].card}</div></td>
-            //                 <td><div><button type="button" onclick="deleteMember(${i})" class="btn btn-outline-danger">Delete</button></div></td>
-            //             </tr>
-            //             `
             if (today < new Date(membersList[i].expire)) {
                 cartona += `
                             <tr>
@@ -239,11 +246,15 @@ function search() {
                                 <td class="green"><div>${membersList[i].notes}</div></td>
                                 <td class="green"><div>${membersList[i].Gym}</div></td>
                                 <td class="green"><div>${membersList[i].cardio}</div></td>
+                                <td class="green"><div>${membersList[i].sauna}</div></td>
+                                <td class="green"><div>${membersList[i].steam}</div></td>
                                 <td class="green"><div>${membersList[i].phoneNumber}</div></td>
                                 <td class="green"><div>${membersList[i].card}</div></td>
+                                <td class="green"><div>${membersList[i].Group}</div></td>
                                 <td><div>
-                                        <button type="button" onclick="deleteMember(${i})" class="btn btn-outline-danger me-2">Delete</button>
-                                        <button type="button" onclick="setValuesForUpdate(${i})" class="btn btn-outline-warning">update</button>
+                                        <button type="button" onclick="deleteMember(${i})" class="btn btn-outline-danger me-1"><i class="fa-solid fa-trash-can"></i></button>
+                                        <button type="button" onclick="setValuesForUpdate(${i})" class="btn btn-outline-warning me-1">update</button>
+                                        <button type="button" onclick="setValuesForUpdateTime(${i})" class="btn btn-outline-success"><i class="fa-regular fa-clock"></i></button>
                                         </div></td>
                             </tr>
                             `
@@ -258,11 +269,15 @@ function search() {
                                 <td class="red"><div>${membersList[i].notes}</div></td>
                                 <td class="red"><div>${membersList[i].Gym}</div></td>
                                 <td class="red"><div>${membersList[i].cardio}</div></td>
+                                <td class="red"><div>${membersList[i].sauna}</div></td>
+                                <td class="red"><div>${membersList[i].steam}</div></td>
                                 <td class="red"><div>${membersList[i].phoneNumber}</div></td>
                                 <td class="red"><div>${membersList[i].card}</div></td>
+                                <td class="red"><div>${membersList[i].Group}</div></td>
                                 <td><div>
-                                        <button type="button" onclick="deleteMember(${i})" class="btn btn-outline-danger me-2">Delete</button>
-                                        <button type="button" onclick="setValuesForUpdate(${i})" class="btn btn-outline-warning">update</button>
+                                        <button type="button" onclick="deleteMember(${i})" class="btn btn-outline-danger me-1"><i class="fa-solid fa-trash-can"></i></button>
+                                        <button type="button" onclick="setValuesForUpdate(${i})" class="btn btn-outline-warning me-1">update</button>
+                                        <button type="button" onclick="setValuesForUpdateTime(${i})" class="btn btn-outline-success"><i class="fa-regular fa-clock"></i></button>
                                         </div></td>
                             </tr>
         `
@@ -277,12 +292,20 @@ function clearInputs() {
     memberPrice.value = "";
     memberNotes.value = "";
     memberphoneNumber.value = "";
+    sauna.value = "";
+    steam.value = "";
     date.value = "";
+    $("#Gym").prop("checked", true);
+    $("#Cardio").prop("checked", false);
+    $("#card").prop("checked", true);
+    $("#Group").prop("checked", true);
     memberName.classList.remove("is-valid");
     memberPrice.classList.remove("is-valid");
     memberNotes.classList.remove("is-valid");
     memberphoneNumber.classList.remove("is-valid");
     date.classList.remove("is-valid");
+    $("#souna").removeClass("is-valid")
+    $("#steam").removeClass("is-valid")
 }
 
 function deleteMember(index) {
@@ -312,7 +335,7 @@ function nameValidation() {
 }
 
 function priceValidation() {
-    var regex = /^[1-9][0-9]{2,4}$/;
+    var regex = /^[0-9]{1,4}$/;
     var myString = memberPrice.value;
     if (regex.test(myString)) {
         memberPrice.classList.add("is-valid");
@@ -343,7 +366,7 @@ function notesValidation() {
     }
 }
 function dateValidation() {
-    if (date.value !=="") {
+    if (date.value !== "") {
         date.classList.add("is-valid");
         date.classList.remove("is-invalid");
         wrongDate.classList.add("d-none");
@@ -372,13 +395,41 @@ function phoneValidation() {
         return false;
     }
 }
+function saunaValidation() {
+    var regex = /^[0-9]*$/;
+    var myString = sauna.value;
+    if (regex.test(myString)) {
+        sauna.classList.add("is-valid");
+        sauna.classList.remove("is-invalid");
+        return true;
+    }
+    else {
+        sauna.classList.add("is-invalid");
+        sauna.classList.remove("is-valid");
+        return false;
+    }
+}
+function steamValidation() {
+    var regex = /^[0-9]*$/;
+    var myString = steam.value;
+    if (regex.test(myString)) {
+        steam.classList.add("is-valid");
+        steam.classList.remove("is-invalid");
+        return true;
+    }
+    else {
+        steam.classList.add("is-invalid");
+        steam.classList.remove("is-valid");
+        return false;
+    }
+}
 
 
 date.addEventListener("input", () => {
     let selectedDate = date.value;
     if (selectedDate !== "") {
         durationInput.disabled = false;
-        durationInput.innerHTML=`
+        durationInput.innerHTML = `
                                 <option value="${new Date(new Date(selectedDate).getFullYear(), new Date(selectedDate).getMonth() + 1, 0).getDate()}">1 Months</option>
                                 <option value="${new Date(new Date(selectedDate).getFullYear(), new Date(selectedDate).getMonth() + 1, 0).getDate() + new Date(new Date(selectedDate).getFullYear(), new Date(selectedDate).getMonth() + 2, 0).getDate()}">2 Months</option>
                                 <option value="${new Date(new Date(selectedDate).getFullYear(), new Date(selectedDate).getMonth() + 1, 0).getDate() + new Date(new Date(selectedDate).getFullYear(), new Date(selectedDate).getMonth() + 2, 0).getDate() + new Date(new Date(selectedDate).getFullYear(), new Date(selectedDate).getMonth() + 3, 0).getDate()}">3 Months</option>
@@ -394,11 +445,15 @@ date.addEventListener("input", () => {
 let deleteBtns;
 let indexUpdate;
 let updateBtn = document.getElementById("update");
+
 function setValuesForUpdate(set) {
+    $("#date").addClass("visually-hidden")
+    $("#duration").addClass("visually-hidden")
     deleteBtns = document.querySelectorAll(".btn.btn-outline-danger");
     for (var i = 0; i < deleteBtns.length; i++) {
         deleteBtns[i].classList.add("d-none");
     }
+    $(".btn-outline-success").addClass("d-none")
     // console.log(deleteBtns);
 
     indexUpdate = set;
@@ -406,46 +461,93 @@ function setValuesForUpdate(set) {
     memberPrice.value = membersList[set].price;
     memberNotes.value = membersList[set].notes;
     memberphoneNumber.value = membersList[set].phoneNumber;
-    date.value = new Date(membersList[set].date).toISOString().slice(0, 10);
+    sauna.value = membersList[set].sauna;
+    steam.value = membersList[set].steam;
+    (membersList[set].Gym == '<i class="fa-solid fa-check"></i>') ? $("#Gym").prop("checked", true) : $("#Gym").prop("checked", false);
+    (membersList[set].cardio == '<i class="fa-solid fa-check"></i>') ? $("#Cardio").prop("checked", true) : $("#Cardio").prop("checked", false);
+    (membersList[set].card == '<i class="fa-solid fa-check"></i>') ? $("#card").prop("checked", true) : $("#card").prop("checked", false);
+    (membersList[set].Group == '<i class="fa-solid fa-check"></i>') ? $("#Group").prop("checked", true) : $("#Group").prop("checked", false);
+
+
+    // date.value = new Date(membersList[set].date).toISOString().slice(0, 10);
     submitBtn.classList.add("d-none")
     updateBtn.classList.remove("d-none")
+    $("#updateDate").addClass("d-none")
 }
-
-updateBtn.addEventListener("click", () => {
-    updateMembers()
+let indexDate;
+function setValuesForUpdateTime(set) {
+    $(".btn-outline-danger").addClass("d-none")
+    indexDate = set
+    date.value = new Date(membersList[set].date).toISOString().slice(0, 10);
+    submitBtn.classList.add("d-none")
+    updateBtn.classList.add("d-none")
+    $("#updateDate").removeClass("d-none")
+    $(".btn-outline-warning").addClass("d-none")
+    $(".form-floating , .form-check").addClass("invisible")
+}
+$("#updateDate").on("click", function () {
+    updateDate()
 })
-
-function updateMembers() {
+function updateDate() {
     let currentDate = new Date(date.value);
     let durationDays = +durationInput.value;
     let expirationDate = new Date(currentDate);
     expirationDate.setDate(currentDate.getDate() + durationDays);
 
-    membersList[indexUpdate].name = memberName.value
-    membersList[indexUpdate].price = memberPrice.value
-    membersList[indexUpdate].notes = memberNotes.value
-    membersList[indexUpdate].phoneNumber = memberphoneNumber.value
-    membersList[indexUpdate].date = currentDate
-    membersList[indexUpdate].expire = expirationDate
-    membersList[indexUpdate].Gym = (Gym.checked == 1) ? `<i class="fa-solid fa-check"></i>` : "";
-    membersList[indexUpdate].cardio = (Cardio.checked == 1) ? `<i class="fa-solid fa-check"></i>` : "";
-    membersList[indexUpdate].card = (card.checked == 1) ? `<i class="fa-solid fa-check"></i>` : "";
+    membersList[indexDate].date = currentDate
+    membersList[indexDate].expire = expirationDate
     localStorage.setItem("Members", JSON.stringify(membersList))
     displayMembers();
     submitBtn.classList.remove("d-none")
     updateBtn.classList.add("d-none")
+    $("#updateDate").addClass("d-none")
+    clearInputs()
+    $(".btn-outline-danger").removeClass("d-none")
+    $(".btn-outline-warning").removeClass("d-none")
+    $(".form-floating , .form-check").removeClass("invisible")
+}
+updateBtn.addEventListener("click", () => {
+    updateMembers()
+})
+
+function updateMembers() {
+    $("#date").removeClass("visually-hidden")
+    $("#duration").removeClass("visually-hidden")
+    // let currentDate = new Date(date.value);
+    // let durationDays = +durationInput.value;
+    // let expirationDate = new Date(currentDate);
+    // expirationDate.setDate(currentDate.getDate() + durationDays);
+
+    membersList[indexUpdate].name = memberName.value
+    membersList[indexUpdate].price = memberPrice.value
+    membersList[indexUpdate].notes = memberNotes.value
+    membersList[indexUpdate].phoneNumber = memberphoneNumber.value
+    membersList[indexUpdate].sauna = sauna.value
+    membersList[indexUpdate].steam = steam.value
+    // membersList[indexUpdate].date = currentDate
+    // membersList[indexUpdate].expire = expirationDate
+    membersList[indexUpdate].Gym = (Gym.checked == 1) ? `<i class="fa-solid fa-check"></i>` : "";
+    membersList[indexUpdate].cardio = (Cardio.checked == 1) ? `<i class="fa-solid fa-check"></i>` : "";
+    membersList[indexUpdate].card = (card.checked == 1) ? `<i class="fa-solid fa-check"></i>` : "";
+    membersList[indexUpdate].Group = (Group.checked == 1) ? `<i class="fa-solid fa-check"></i>` : "";
+    localStorage.setItem("Members", JSON.stringify(membersList))
+    displayMembers();
+    submitBtn.classList.remove("d-none")
+    updateBtn.classList.add("d-none")
+    $("#updateDate").addClass("d-none")
+    $(".btn-outline-success").removeClass("d-none")
     clearInputs()
     for (var i = 0; i < deleteBtns.length; i++) {
         deleteBtns[i].classList.remove("d-none");
     }
 }
 
-updateExpiredBtn.addEventListener("click",()=>{
+updateExpiredBtn.addEventListener("click", () => {
     let pass = window.prompt("Password:");
     // updateExpiredInput.value
-    if(pass == 12345){
-        if(updateExpiredInput.value > 0){
-            for(let i=0;i<membersList.length;i++){
+    if (pass == 12345) {
+        if (updateExpiredInput.value > 0) {
+            for (let i = 0; i < membersList.length; i++) {
                 // console.log(new Date(membersList[i].expire) );
                 let currentexpire = new Date(membersList[i].expire);
                 let addionalDays = +updateExpiredInput.value;
@@ -455,9 +557,9 @@ updateExpiredBtn.addEventListener("click",()=>{
             }
             localStorage.setItem("Members", JSON.stringify(membersList))
             displayMembers()
-            updateExpiredInput.value="";
+            updateExpiredInput.value = "";
         }
     }
-    
-    
+
+
 })
