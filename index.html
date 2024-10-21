@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gym</title>
+    <title>Power Gym</title>
+    <link rel="icon" href="./images/bg.png">
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -82,19 +83,25 @@
                     </div>
                     <div class="col-md-6">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-floating mb-3">
                                     <input type="number" class="form-control" oninput="saunaValidation()" id="souna" min="0" step="1"
                                         placeholder="name@example.com">
-                                    <label for="souna">Sauna</label>
+                                    <label for="souna">Sauna | Steam</label>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" oninput="steamValidation()" id="steam" min="0" step="1"
-                                        placeholder="name@example.com">
-                                    <label for="steam">Steam</label>
+                            <div class="col-md-4">
+                                <div class="date ">
+                                    <input type="date" class="form-control " id="date" placeholder="yy"
+                                        oninput="dateValidation()">
+                                    <!-- <button class="btn btn-outline-info" onclick="getDate()">try</button> -->
                                 </div>
+                                <p class="text-danger mt-2 ms-2 d-none" id="wrongDate">Enter a date</p>
+                            </div>
+                            <div class="col-md-4">
+                                <select id="duration" class="form-select" disabled>
+                                </select>
+                                <!-- <button class="btn btn-outline-success" onclick="check()">try</button> -->
                             </div>
                             
                         </div>
@@ -121,23 +128,6 @@
                             <label class="form-check-label h5" for="Group">
                                 Group
                             </label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="date ">
-                                    <input type="date" class="form-control " id="date" placeholder="yy"
-                                        oninput="dateValidation()">
-                                    <!-- <button class="btn btn-outline-info" onclick="getDate()">try</button> -->
-                                </div>
-                                <p class="text-danger mt-2 ms-2 d-none" id="wrongDate">Enter a date</p>
-                            </div>
-                            <div class="col-md-8">
-                                <select id="duration" class="form-select" disabled>
-                                </select>
-                                <!-- <button class="btn btn-outline-success" onclick="check()">try</button> -->
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -171,24 +161,12 @@
                         <th class="zero-width">Gym</th>
                         <th class="zero-width">Cardio</th>
                         <th class="zero-width">Sauna</th>
-                        <th class="zero-width">Steam</th>
                         <th>phone</th>
                         <th class="zero-width ">Card</th>
                         <th class="zero-width ">Group</th>
                         <th class="zero-width text-center">Options</th>
                     </thead>
                     <tbody id="data">
-                        <!-- <tr>
-                            <td><div>nowwwwww</div></td>
-                            <td><div>24/9/2023</div></td>
-                            <td><div>300</div></td>
-                            <td><div>Sale</div></td>
-                            <td><div><i class="fa-solid fa-check"></i></div></td>
-                            <td><div></div></td>
-                            <td><div>01032587465</div></td>
-                            <td><div><i class="fa-solid fa-check"></i></div></td>
-                            <td><div><button type="button" onclick="deleteMember(index)" class="btn btn-outline-danger">Delete</button></div></td>
-                        </tr> -->
                     </tbody>
                 </table>
 
@@ -206,7 +184,6 @@
                         <th class="zero-width">Gym</th>
                         <th class="zero-width">Cardio</th>
                         <th class="zero-width">sauna</th>
-                        <th class="zero-width">steam</th>
                         <th>phone</th>
                         <th class="zero-width ">Card</th>
                         <th class="zero-width ">Group</th>

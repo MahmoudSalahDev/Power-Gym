@@ -26,7 +26,7 @@ let wrongDate = document.getElementById("wrongDate");
 let updateExpiredInput = document.getElementById("updateExpired");
 let updateExpiredBtn = document.getElementById("updateExpiredBtn");
 let sauna = document.getElementById("souna");
-let steam = document.getElementById("steam");
+
 
 
 membersTap.addEventListener("click", function () {
@@ -90,7 +90,7 @@ for (let i = 0; i < membersList.length; i++) {
 
 function addmember() {
 
-    if (nameValidation() && priceValidation() && notesValidation() && phoneValidation() && dateValidation() && saunaValidation() && steamValidation()) {
+    if (nameValidation() && priceValidation() && notesValidation() && phoneValidation() && dateValidation() && saunaValidation() ) {
         // let today = new Date()
 
         let currentDate = new Date(date.value);
@@ -106,7 +106,6 @@ function addmember() {
             notes: memberNotes.value,
             phoneNumber: memberphoneNumber.value,
             sauna: sauna.value,
-            steam: steam.value,
             Gym: (Gym.checked == 1) ? `<i class="fa-solid fa-check"></i>` : "",
             cardio: (Cardio.checked == 1) ? `<i class="fa-solid fa-check"></i>` : "",
             card: (card.checked == 1) ? `<i class="fa-solid fa-check"></i>` : "",
@@ -140,7 +139,6 @@ function displayArchive() {
                             <td class="red"><div class="center">${archiveList[i].Gym}</div></td>
                             <td class="red"><div class="center">${archiveList[i].cardio}</div></td>
                             <td class="red"><div class="center">${archiveList[i].sauna}</div></td>
-                            <td class="red"><div class="center">${archiveList[i].steam}</div></td>
                             <td class="red"><div>${archiveList[i].phoneNumber}</div></td>
                             <td class="red"><div class="center">${archiveList[i].card}</div></td>
                             <td class="red"><div class="center">${archiveList[i].Group}</div></td>
@@ -165,7 +163,6 @@ function displayMembers() {
                             <td class="red"><div class="center">${membersList[i].Gym}</div></td>
                             <td class="red"><div class="center">${membersList[i].cardio}</div></td>
                             <td class="red"><div class="center">${membersList[i].sauna}</div></td>
-                            <td class="red"><div class="center">${membersList[i].steam}</div></td>
                             <td class="red"><div>${membersList[i].phoneNumber}</div></td>
                             <td class="red"><div class="center">${membersList[i].card}</div></td>
                             <td class="red"><div class="center">${membersList[i].Group}</div></td>
@@ -188,7 +185,6 @@ function displayMembers() {
                             <td class="green"><div class="center">${membersList[i].Gym}</div></td>
                             <td class="green"><div class="center">${membersList[i].cardio}</div></td>
                             <td class="green"><div class="center">${membersList[i].sauna}</div></td>
-                            <td class="green"><div class="center">${membersList[i].steam}</div></td>
                             <td class="green"><div>${membersList[i].phoneNumber}</div></td>
                             <td class="green"><div class="center">${membersList[i].card}</div></td>
                             <td class="green"><div class="center">${membersList[i].Group}</div></td>
@@ -220,7 +216,6 @@ function searchArchive() {
                             <td class="red"><div class="center">${member.Gym}</div></td>
                             <td class="red"><div class="center">${member.cardio}</div></td>
                             <td class="red"><div class="center">${member.sauna}</div></td>
-                            <td class="red"><div class="center">${member.steam}</div></td>
                             <td class="red"><div>${member.phoneNumber}</div></td>
                             <td class="red"><div class="center">${member.card}</div></td>
                             <td class="red"><div class="center">${member.Group}</div></td>
@@ -247,7 +242,6 @@ function search() {
                                 <td class="green"><div>${membersList[i].Gym}</div></td>
                                 <td class="green"><div>${membersList[i].cardio}</div></td>
                                 <td class="green"><div>${membersList[i].sauna}</div></td>
-                                <td class="green"><div>${membersList[i].steam}</div></td>
                                 <td class="green"><div>${membersList[i].phoneNumber}</div></td>
                                 <td class="green"><div>${membersList[i].card}</div></td>
                                 <td class="green"><div>${membersList[i].Group}</div></td>
@@ -270,7 +264,6 @@ function search() {
                                 <td class="red"><div>${membersList[i].Gym}</div></td>
                                 <td class="red"><div>${membersList[i].cardio}</div></td>
                                 <td class="red"><div>${membersList[i].sauna}</div></td>
-                                <td class="red"><div>${membersList[i].steam}</div></td>
                                 <td class="red"><div>${membersList[i].phoneNumber}</div></td>
                                 <td class="red"><div>${membersList[i].card}</div></td>
                                 <td class="red"><div>${membersList[i].Group}</div></td>
@@ -293,7 +286,6 @@ function clearInputs() {
     memberNotes.value = "";
     memberphoneNumber.value = "";
     sauna.value = "";
-    steam.value = "";
     date.value = "";
     $("#Gym").prop("checked", true);
     $("#Cardio").prop("checked", false);
@@ -305,7 +297,6 @@ function clearInputs() {
     memberphoneNumber.classList.remove("is-valid");
     date.classList.remove("is-valid");
     $("#souna").removeClass("is-valid")
-    $("#steam").removeClass("is-valid")
 }
 
 function deleteMember(index) {
@@ -409,20 +400,7 @@ function saunaValidation() {
         return false;
     }
 }
-function steamValidation() {
-    var regex = /^[0-9]*$/;
-    var myString = steam.value;
-    if (regex.test(myString)) {
-        steam.classList.add("is-valid");
-        steam.classList.remove("is-invalid");
-        return true;
-    }
-    else {
-        steam.classList.add("is-invalid");
-        steam.classList.remove("is-valid");
-        return false;
-    }
-}
+
 
 
 date.addEventListener("input", () => {
@@ -431,6 +409,7 @@ date.addEventListener("input", () => {
         durationInput.disabled = false;
         durationInput.innerHTML = `
                                 <option value="${new Date(new Date(selectedDate).getFullYear(), new Date(selectedDate).getMonth() + 1, 0).getDate()}">1 Months</option>
+                                <option value="15">15 days</option>
                                 <option value="${new Date(new Date(selectedDate).getFullYear(), new Date(selectedDate).getMonth() + 1, 0).getDate() + new Date(new Date(selectedDate).getFullYear(), new Date(selectedDate).getMonth() + 2, 0).getDate()}">2 Months</option>
                                 <option value="${new Date(new Date(selectedDate).getFullYear(), new Date(selectedDate).getMonth() + 1, 0).getDate() + new Date(new Date(selectedDate).getFullYear(), new Date(selectedDate).getMonth() + 2, 0).getDate() + new Date(new Date(selectedDate).getFullYear(), new Date(selectedDate).getMonth() + 3, 0).getDate()}">3 Months</option>
                                 <option value="183">6 Months</option>
@@ -462,7 +441,6 @@ function setValuesForUpdate(set) {
     memberNotes.value = membersList[set].notes;
     memberphoneNumber.value = membersList[set].phoneNumber;
     sauna.value = membersList[set].sauna;
-    steam.value = membersList[set].steam;
     (membersList[set].Gym == '<i class="fa-solid fa-check"></i>') ? $("#Gym").prop("checked", true) : $("#Gym").prop("checked", false);
     (membersList[set].cardio == '<i class="fa-solid fa-check"></i>') ? $("#Cardio").prop("checked", true) : $("#Cardio").prop("checked", false);
     (membersList[set].card == '<i class="fa-solid fa-check"></i>') ? $("#card").prop("checked", true) : $("#card").prop("checked", false);
@@ -523,7 +501,6 @@ function updateMembers() {
     membersList[indexUpdate].notes = memberNotes.value
     membersList[indexUpdate].phoneNumber = memberphoneNumber.value
     membersList[indexUpdate].sauna = sauna.value
-    membersList[indexUpdate].steam = steam.value
     // membersList[indexUpdate].date = currentDate
     // membersList[indexUpdate].expire = expirationDate
     membersList[indexUpdate].Gym = (Gym.checked == 1) ? `<i class="fa-solid fa-check"></i>` : "";
