@@ -1,3 +1,6 @@
+:root{
+    scroll-behavior: auto;
+}
 .zero-width{
     width: 0px;
 }
@@ -79,7 +82,12 @@ h1{
     display: flex;
     column-gap: 10px;
 }
-
+.members #updateExpired{
+    min-width: 250px;
+}
+.members table{
+    /* direction: rtl; */
+}
 .members table tbody tr td.green{
     background-color: rgb(99, 255, 107);
 }
@@ -97,6 +105,20 @@ h1{
     align-items: center;
     align-content: center;
     font-size: 15px;
+}
+.dropdown-menu{
+    overflow: hidden;
+}
+.dropdown-menu a{
+    cursor: pointer;
+    transition: margin-left .3s;
+}
+.dropdown-menu a:hover{
+    margin-left: 5px;
+
+}
+.dropdown-menu #dlt-btn:hover{
+    color: red;
 }
 /* end members */
 

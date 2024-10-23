@@ -34,8 +34,6 @@ membersTap.addEventListener("click", function () {
     archiveSection.classList.add("d-none");
     membersTable.classList.remove("d-none");
     membersForm.classList.remove("d-none");
-
-
 })
 archiveTap.addEventListener("click", function () {
     body.style.backgroundImage = "linear-gradient(to right, rgba(0, 0, 0, 0.514) 0% 100%), url(./images/archive.jpg)";
@@ -90,7 +88,7 @@ for (let i = 0; i < membersList.length; i++) {
 
 function addmember() {
 
-    if (nameValidation() && priceValidation() && notesValidation() && phoneValidation() && dateValidation() && saunaValidation() ) {
+    if (nameValidation() && priceValidation() && notesValidation() && phoneValidation() && dateValidation() && saunaValidation()) {
         // let today = new Date()
 
         let currentDate = new Date(date.value);
@@ -166,12 +164,19 @@ function displayMembers() {
                             <td class="red"><div>${membersList[i].phoneNumber}</div></td>
                             <td class="red"><div class="center">${membersList[i].card}</div></td>
                             <td class="red"><div class="center">${membersList[i].Group}</div></td>
-                            <td><div>
-                                    <button type="button" onclick="deleteMember(${i})" class="btn btn-outline-danger me-1"><i class="fa-solid fa-trash-can"></i></button>
-                                    <button type="button" onclick="setValuesForUpdate(${i})" class="btn btn-outline-warning me-1">update</button>
-                                    <button type="button" onclick="setValuesForUpdateTime(${i})" class="btn btn-outline-success"><i class="fa-regular fa-clock"></i></button>
-                                    </div></td>
-                        </tr>
+                            <td><div class="btn-group" >
+                                    <button type="button"  class="btn btn-danger updateBtn" onclick="setValuesForUpdate(${i})">Update</button>
+                                    <button type="button"  class="btn btn-danger  dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span class="visually-hidden">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item dateLink" onclick="setValuesForUpdateTime(${i})">Update Date <i class="fa-regular fa-clock"></i></a></li>
+                                        <li><a class="dropdown-item renewalLink" onclick="setValuesForRenewal(${i})">Renewal <i class="fa-solid fa-arrow-rotate-left"></i></a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item " id="dlt-btn"  onclick="deleteMember(${i})" >Delete <i class="fa-solid fa-trash-can"></i></a></li>
+                                    </ul>
+                                </div>
+                            </tr>
                         `
         }
         else {
@@ -188,11 +193,18 @@ function displayMembers() {
                             <td class="green"><div>${membersList[i].phoneNumber}</div></td>
                             <td class="green"><div class="center">${membersList[i].card}</div></td>
                             <td class="green"><div class="center">${membersList[i].Group}</div></td>
-                            <td><div>
-                                    <button type="button" onclick="deleteMember(${i})" class="btn btn-outline-danger me-1"><i class="fa-solid fa-trash-can"></i></button>
-                                    <button type="button" onclick="setValuesForUpdate(${i})" class="btn btn-outline-warning me-1">update</button>
-                                    <button type="button" onclick="setValuesForUpdateTime(${i})" class="btn btn-outline-success"><i class="fa-regular fa-clock"></i></button>
-                                    </div></td>
+                            <td><div class="btn-group" >
+                                    <button type="button"  class="btn btn-success updateBtn" onclick="setValuesForUpdate(${i})">Update</button>
+                                    <button type="button"  class="btn btn-success  dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span class="visually-hidden">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item dateLink" onclick="setValuesForUpdateTime(${i})">Update Date <i class="fa-regular fa-clock"></i></a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item " id="dlt-btn"  onclick="deleteMember(${i})" >Delete <i class="fa-solid fa-trash-can"></i></a></li>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
     `
         }
@@ -200,7 +212,12 @@ function displayMembers() {
     }
     Data.innerHTML = cartona;
 }
-
+$(".updateBtn").on("click", () => {
+    $(".dropdown-toggle").attr("disabled", "");
+})
+$("#update").on("click", () => {
+    $(".dropdown-toggle").removeAttr("disabled");
+})
 function searchArchive() {
     let term = searchArchiveInput.value.toLowerCase();
     let cartona = ``
@@ -245,13 +262,20 @@ function search() {
                                 <td class="green"><div>${membersList[i].phoneNumber}</div></td>
                                 <td class="green"><div>${membersList[i].card}</div></td>
                                 <td class="green"><div>${membersList[i].Group}</div></td>
-                                <td><div>
-                                        <button type="button" onclick="deleteMember(${i})" class="btn btn-outline-danger me-1"><i class="fa-solid fa-trash-can"></i></button>
-                                        <button type="button" onclick="setValuesForUpdate(${i})" class="btn btn-outline-warning me-1">update</button>
-                                        <button type="button" onclick="setValuesForUpdateTime(${i})" class="btn btn-outline-success"><i class="fa-regular fa-clock"></i></button>
-                                        </div></td>
+                                <td><div class="btn-group" >
+                                        <button type="button"  class="btn btn-success updateBtn" onclick="setValuesForUpdate(${i})">Update</button>
+                                        <button type="button"  class="btn btn-success  dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item dateLink" onclick="setValuesForUpdateTime(${i})">Update Date <i class="fa-regular fa-clock"></i></a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item " id="dlt-btn"  onclick="deleteMember(${i})" >Delete <i class="fa-solid fa-trash-can"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </td>
                             </tr>
-                            `
+                        `
             }
             else {
                 cartona += `
@@ -267,11 +291,19 @@ function search() {
                                 <td class="red"><div>${membersList[i].phoneNumber}</div></td>
                                 <td class="red"><div>${membersList[i].card}</div></td>
                                 <td class="red"><div>${membersList[i].Group}</div></td>
-                                <td><div>
-                                        <button type="button" onclick="deleteMember(${i})" class="btn btn-outline-danger me-1"><i class="fa-solid fa-trash-can"></i></button>
-                                        <button type="button" onclick="setValuesForUpdate(${i})" class="btn btn-outline-warning me-1">update</button>
-                                        <button type="button" onclick="setValuesForUpdateTime(${i})" class="btn btn-outline-success"><i class="fa-regular fa-clock"></i></button>
-                                        </div></td>
+                                <td><div class="btn-group" >
+                                        <button type="button"  class="btn btn-danger updateBtn" onclick="setValuesForUpdate(${i})">Update</button>
+                                        <button type="button"  class="btn btn-danger  dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item dateLink" onclick="setValuesForUpdateTime(${i})">Update Date <i class="fa-regular fa-clock"></i></a></li>
+                                            <li><a class="dropdown-item renewalLink" onclick="setValuesForRenewal(${i})">Renewal <i class="fa-solid fa-arrow-rotate-left"></i></a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item " id="dlt-btn"  onclick="deleteMember(${i})" >Delete <i class="fa-solid fa-trash-can"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </td>
                             </tr>
         `
             }
@@ -301,12 +333,13 @@ function clearInputs() {
 
 function deleteMember(index) {
     archiveList.unshift(membersList[index]);
-    console.log(archiveList);
+    // console.log(archiveList);
     localStorage.setItem("archiveList", JSON.stringify(archiveList));
     membersList.splice(index, 1);
     localStorage.setItem("Members", JSON.stringify(membersList));
     displayMembers();
 };
+
 
 function nameValidation() {
     var regex = /^.{3,30}$/;
@@ -429,12 +462,9 @@ function setValuesForUpdate(set) {
     $("#date").addClass("visually-hidden")
     $("#duration").addClass("visually-hidden")
     deleteBtns = document.querySelectorAll(".btn.btn-outline-danger");
-    for (var i = 0; i < deleteBtns.length; i++) {
-        deleteBtns[i].classList.add("d-none");
-    }
     $(".btn-outline-success").addClass("d-none")
     // console.log(deleteBtns);
-
+    $(".dropdown-toggle").attr("disabled", "");
     indexUpdate = set;
     memberName.value = membersList[set].name;
     memberPrice.value = membersList[set].price;
@@ -454,13 +484,13 @@ function setValuesForUpdate(set) {
 }
 let indexDate;
 function setValuesForUpdateTime(set) {
-    $(".btn-outline-danger").addClass("d-none")
+    $(".updateBtn").attr("disabled", "");
+    $(".dropdown-toggle").attr("disabled", "");
     indexDate = set
     date.value = new Date(membersList[set].date).toISOString().slice(0, 10);
     submitBtn.classList.add("d-none")
     updateBtn.classList.add("d-none")
     $("#updateDate").removeClass("d-none")
-    $(".btn-outline-warning").addClass("d-none")
     $(".form-floating , .form-check").addClass("invisible")
 }
 $("#updateDate").on("click", function () {
@@ -480,14 +510,19 @@ function updateDate() {
     updateBtn.classList.add("d-none")
     $("#updateDate").addClass("d-none")
     clearInputs()
-    $(".btn-outline-danger").removeClass("d-none")
-    $(".btn-outline-warning").removeClass("d-none")
     $(".form-floating , .form-check").removeClass("invisible")
+    $(".updateBtn").removeAttr("disabled");
+    $(".dropdown-toggle").removeAttr("disabled");
 }
 updateBtn.addEventListener("click", () => {
     updateMembers()
 })
-
+$(".dateLink").on("mouseenter", () => {
+    $(".dateLink i").addClass("fa-shake")
+})
+$(".dateLink").on("mouseleave", () => {
+    $(".dateLink i").removeClass("fa-shake")
+})
 function updateMembers() {
     $("#date").removeClass("visually-hidden")
     $("#duration").removeClass("visually-hidden")
@@ -514,9 +549,8 @@ function updateMembers() {
     $("#updateDate").addClass("d-none")
     $(".btn-outline-success").removeClass("d-none")
     clearInputs()
-    for (var i = 0; i < deleteBtns.length; i++) {
-        deleteBtns[i].classList.remove("d-none");
-    }
+
+    $(".dropdown-toggle").removeAttr("disabled");
 }
 
 updateExpiredBtn.addEventListener("click", () => {
@@ -537,6 +571,27 @@ updateExpiredBtn.addEventListener("click", () => {
             updateExpiredInput.value = "";
         }
     }
+})
 
 
+function setValuesForRenewal(set) {
+    memberName.value = membersList[set].name;
+    memberPrice.value = "";
+    memberNotes.value = "";
+    memberphoneNumber.value = membersList[set].phoneNumber;
+    sauna.value = "";
+    $("#Gym").prop("checked", true)
+    $("#Cardio").prop("checked", false)
+    $("#card").prop("checked", true)
+    $("#Group").prop("checked", true)
+    submitBtn.classList.remove("d-none")
+    updateBtn.classList.add("d-none")
+    $("#updateDate").addClass("d-none")
+    $("body,html").animate({ scrollTop: 0 }, 200)
+}
+$(".renewalLink").on("mouseenter", () => {
+    $(".renewalLink i").addClass("fa-spin fa-spin-reverse")
+})
+$(".renewalLink").on("mouseleave", () => {
+    $(".renewalLink i").removeClass("fa-spin fa-spin-reverse")
 })
