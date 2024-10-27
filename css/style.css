@@ -91,8 +91,11 @@ h1{
 .members table tbody tr td.green{
     background-color: rgb(99, 255, 107);
 }
+.members table tbody tr td.orange{
+    background-color: rgb(255, 208, 0);
+}
 .members table tbody tr td.red{
-    background-color: rgb(255, 127, 95);
+    background-color: rgb(235, 112, 81);
 }
 .archive table tbody tr td.red{
     background-color: rgb(235, 112, 81);

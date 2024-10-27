@@ -180,7 +180,39 @@ function displayMembers() {
                         `
         }
         else {
-            cartona += `
+            let change = new Date(membersList[i].date)
+            change.setDate(new Date(membersList[i].date).getDate() + 10)
+            if (membersList[i].notes.includes("باقي") && today>change) {
+                cartona += `
+                        <tr>
+                            <td class="orange"><div>${membersList[i].name}</div></td>
+                            <td class="orange"><div>${(new Date(membersList[i].date)).toDateString()}</div></td>
+                            <td class="orange"><div>${(new Date(membersList[i].expire)).toDateString()}</div></td>
+                            <td class="orange"><div>${membersList[i].price}</div></td>
+                            <td class="orange"><div>${membersList[i].notes}</div></td>
+                            <td class="orange"><div class="center">${membersList[i].Gym}</div></td>
+                            <td class="orange"><div class="center">${membersList[i].cardio}</div></td>
+                            <td class="orange"><div class="center">${membersList[i].sauna}</div></td>
+                            <td class="orange"><div>${membersList[i].phoneNumber}</div></td>
+                            <td class="orange"><div class="center">${membersList[i].card}</div></td>
+                            <td class="orange"><div class="center">${membersList[i].Group}</div></td>
+                            <td><div class="btn-group" >
+                                    <button type="button"  class="btn btn-success updateBtn" onclick="setValuesForUpdate(${i})">Update</button>
+                                    <button type="button"  class="btn btn-success  dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span class="visually-hidden">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item dateLink" onclick="setValuesForUpdateTime(${i})">Update Date <i class="fa-regular fa-clock"></i></a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item " id="dlt-btn"  onclick="deleteMember(${i})" >Delete <i class="fa-solid fa-trash-can"></i></a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        `
+            }
+            else{
+                cartona += `
                         <tr>
                             <td class="green"><div>${membersList[i].name}</div></td>
                             <td class="green"><div>${(new Date(membersList[i].date)).toDateString()}</div></td>
@@ -206,7 +238,9 @@ function displayMembers() {
                                 </div>
                             </td>
                         </tr>
-    `
+                        `
+            }
+            
         }
 
     }
