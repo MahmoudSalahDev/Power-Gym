@@ -127,11 +127,24 @@ function addmember() {
 function displayArchive() {
     let contain = ``
     for (var i = 0; i < archiveList.length; i++) {
+        // format for the date to display only
+        let date = (new Date(archiveList[i].date))
+        let dateYear = date.getFullYear();
+        let dateMonth = String(date.getMonth() + 1).padStart(2, '0');
+        let dateDay = String(date.getDate()).padStart(2, '0');
+        let formattedDate = `${dateYear}/${dateMonth}/${dateDay}`;
+
+        let expire = (new Date(archiveList[i].expire))
+        let expireYear = expire.getFullYear();
+        let expireMonth = String(expire.getMonth() + 1).padStart(2, '0');
+        let expireDay = String(expire.getDate()).padStart(2, '0');
+        let formattedExpire = `${expireYear}/${expireMonth}/${expireDay}`;
+        // the end of the format
         contain += `
                         <tr>
                             <td class="red"><div>${archiveList[i].name}</div></td>
-                            <td class="red"><div>${(new Date(archiveList[i].date)).toDateString()}</div></td>
-                            <td class="red"><div>${(new Date(archiveList[i].expire)).toDateString()}</div></td>
+                            <td class="red"><div>${formattedDate}</div></td>
+                            <td class="red"><div>${formattedExpire}</div></td>
                             <td class="red"><div>${archiveList[i].price}</div></td>
                             <td class="red"><div>${archiveList[i].notes}</div></td>
                             <td class="red"><div class="center">${archiveList[i].Gym}</div></td>
@@ -150,12 +163,25 @@ function displayMembers() {
 
     var cartona = ``
     for (var i = 0; i < membersList.length; i++) {
+        // format for the date to display only
+        let date = (new Date(membersList[i].date))
+        let dateYear = date.getFullYear();
+        let dateMonth = String(date.getMonth() + 1).padStart(2, '0');
+        let dateDay = String(date.getDate()).padStart(2, '0');
+        let formattedDate = `${dateYear}/${dateMonth}/${dateDay}`;
+
+        let expire = (new Date(membersList[i].expire))
+        let expireYear = expire.getFullYear();
+        let expireMonth = String(expire.getMonth() + 1).padStart(2, '0');
+        let expireDay = String(expire.getDate()).padStart(2, '0');
+        let formattedExpire = `${expireYear}/${expireMonth}/${expireDay}`;
+        // the end of the format
         if (today > new Date(membersList[i].expire)) {
             cartona += `
                         <tr>
                             <td class="red"><div>${membersList[i].name}</div></td>
-                            <td class="red"><div>${(new Date(membersList[i].date)).toDateString()}</div></td>
-                            <td class="red"><div>${(new Date(membersList[i].expire)).toDateString()}</div></td>
+                            <td class="red"><div>${formattedDate}</div></td>
+                            <td class="red"><div>${formattedExpire}</div></td>
                             <td class="red"><div>${membersList[i].price}</div></td>
                             <td class="red"><div>${membersList[i].notes}</div></td>
                             <td class="red"><div class="center">${membersList[i].Gym}</div></td>
@@ -180,14 +206,14 @@ function displayMembers() {
                         `
         }
         else {
-            let change = new Date(membersList[i].date)
-            change.setDate(new Date(membersList[i].date).getDate() + 10)
-            if (membersList[i].notes.includes("باقي") && today>change) {
+            // let change = new Date(membersList[i].date)
+            // change.setDate(new Date(membersList[i].date).getDate() + 10)
+            if (membersList[i].notes.includes("باقي")) {
                 cartona += `
                         <tr>
                             <td class="orange"><div>${membersList[i].name}</div></td>
-                            <td class="orange"><div>${(new Date(membersList[i].date)).toDateString()}</div></td>
-                            <td class="orange"><div>${(new Date(membersList[i].expire)).toDateString()}</div></td>
+                            <td class="orange"><div>${formattedDate}</div></td>
+                            <td class="orange"><div>${formattedExpire}</div></td>
                             <td class="orange"><div>${membersList[i].price}</div></td>
                             <td class="orange"><div>${membersList[i].notes}</div></td>
                             <td class="orange"><div class="center">${membersList[i].Gym}</div></td>
@@ -211,12 +237,12 @@ function displayMembers() {
                         </tr>
                         `
             }
-            else{
+            else {
                 cartona += `
                         <tr>
                             <td class="green"><div>${membersList[i].name}</div></td>
-                            <td class="green"><div>${(new Date(membersList[i].date)).toDateString()}</div></td>
-                            <td class="green"><div>${(new Date(membersList[i].expire)).toDateString()}</div></td>
+                            <td class="green"><div>${formattedDate}</div></td>
+                            <td class="green"><div>${formattedExpire}</div></td>
                             <td class="green"><div>${membersList[i].price}</div></td>
                             <td class="green"><div>${membersList[i].notes}</div></td>
                             <td class="green"><div class="center">${membersList[i].Gym}</div></td>
@@ -240,9 +266,7 @@ function displayMembers() {
                         </tr>
                         `
             }
-            
         }
-
     }
     Data.innerHTML = cartona;
 }
@@ -257,11 +281,24 @@ function searchArchive() {
     let cartona = ``
     archiveList.filter((member) => {
         if (member.name.toLowerCase().includes(term) || member.phoneNumber.includes(term)) {
+            // format for the date to display only
+            let date = (new Date(member.date))
+            let dateYear = date.getFullYear();
+            let dateMonth = String(date.getMonth() + 1).padStart(2, '0');
+            let dateDay = String(date.getDate()).padStart(2, '0');
+            let formattedDate = `${dateYear}/${dateMonth}/${dateDay}`;
+
+            let expire = (new Date(member.expire))
+            let expireYear = expire.getFullYear();
+            let expireMonth = String(expire.getMonth() + 1).padStart(2, '0');
+            let expireDay = String(expire.getDate()).padStart(2, '0');
+            let formattedExpire = `${expireYear}/${expireMonth}/${expireDay}`;
+            // the end of the format
             cartona += `
                         <tr>
                             <td class="red"><div>${member.name}</div></td>
-                            <td class="red"><div>${(new Date(member.date)).toDateString()}</div></td>
-                            <td class="red"><div>${(new Date(member.expire)).toDateString()}</div></td>
+                            <td class="red"><div>${formattedDate}</div></td>
+                            <td class="red"><div>${formattedExpire}</div></td>
                             <td class="red"><div>${member.price}</div></td>
                             <td class="red"><div>${member.notes}</div></td>
                             <td class="red"><div class="center">${member.Gym}</div></td>
@@ -281,21 +318,66 @@ function search() {
     var term = searchInput.value.toLowerCase();
     var cartona = ``
     for (var i = 0; i < membersList.length; i++) {
+        // format for the date to display only
+        let date = (new Date(membersList[i].date))
+        let dateYear = date.getFullYear();
+        let dateMonth = String(date.getMonth() + 1).padStart(2, '0');
+        let dateDay = String(date.getDate()).padStart(2, '0');
+        let formattedDate = `${dateYear}/${dateMonth}/${dateDay}`;
+
+        let expire = (new Date(membersList[i].expire))
+        let expireYear = expire.getFullYear();
+        let expireMonth = String(expire.getMonth() + 1).padStart(2, '0');
+        let expireDay = String(expire.getDate()).padStart(2, '0');
+        let formattedExpire = `${expireYear}/${expireMonth}/${expireDay}`;
+        // the end of the format
         if (membersList[i].name.toLowerCase().includes(term) || membersList[i].phoneNumber.includes(term)) {
-            if (today < new Date(membersList[i].expire)) {
+            if (today > new Date(membersList[i].expire)) {
                 cartona += `
+                        <tr>
+                            <td class="red"><div>${membersList[i].name}</div></td>
+                            <td class="red"><div>${formattedDate}</div></td>
+                            <td class="red"><div>${formattedExpire}</div></td>
+                            <td class="red"><div>${membersList[i].price}</div></td>
+                            <td class="red"><div>${membersList[i].notes}</div></td>
+                            <td class="red"><div class="center">${membersList[i].Gym}</div></td>
+                            <td class="red"><div class="center">${membersList[i].cardio}</div></td>
+                            <td class="red"><div class="center">${membersList[i].sauna}</div></td>
+                            <td class="red"><div>${membersList[i].phoneNumber}</div></td>
+                            <td class="red"><div class="center">${membersList[i].card}</div></td>
+                            <td class="red"><div class="center">${membersList[i].Group}</div></td>
+                            <td><div class="btn-group" >
+                                    <button type="button"  class="btn btn-danger updateBtn" onclick="setValuesForUpdate(${i})">Update</button>
+                                    <button type="button"  class="btn btn-danger  dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span class="visually-hidden">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item dateLink" onclick="setValuesForUpdateTime(${i})">Update Date <i class="fa-regular fa-clock"></i></a></li>
+                                        <li><a class="dropdown-item renewalLink" onclick="setValuesForRenewal(${i})">Renewal <i class="fa-solid fa-arrow-rotate-left"></i></a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item " id="dlt-btn"  onclick="deleteMember(${i})" >Delete <i class="fa-solid fa-trash-can"></i></a></li>
+                                    </ul>
+                                </div>
+                            </tr>
+                        `
+            }
+            else {
+                // let change = new Date(membersList[i].date)
+                // change.setDate(new Date(membersList[i].date).getDate() + 10)
+                if (membersList[i].notes.includes("باقي")) {
+                    cartona += `
                             <tr>
-                                <td class="green"><div>${membersList[i].name}</div></td>
-                                <td class="green"><div>${(new Date(membersList[i].date)).toDateString()}</div></td>
-                                <td class="green"><div>${(new Date(membersList[i].expire)).toDateString()}</div></td>
-                                <td class="green"><div>${membersList[i].price}</div></td>
-                                <td class="green"><div>${membersList[i].notes}</div></td>
-                                <td class="green"><div>${membersList[i].Gym}</div></td>
-                                <td class="green"><div>${membersList[i].cardio}</div></td>
-                                <td class="green"><div>${membersList[i].sauna}</div></td>
-                                <td class="green"><div>${membersList[i].phoneNumber}</div></td>
-                                <td class="green"><div>${membersList[i].card}</div></td>
-                                <td class="green"><div>${membersList[i].Group}</div></td>
+                                <td class="orange"><div>${membersList[i].name}</div></td>
+                                <td class="orange"><div>${formattedDate}</div></td>
+                                <td class="orange"><div>${formattedExpire}</div></td>
+                                <td class="orange"><div>${membersList[i].price}</div></td>
+                                <td class="orange"><div>${membersList[i].notes}</div></td>
+                                <td class="orange"><div class="center">${membersList[i].Gym}</div></td>
+                                <td class="orange"><div class="center">${membersList[i].cardio}</div></td>
+                                <td class="orange"><div class="center">${membersList[i].sauna}</div></td>
+                                <td class="orange"><div>${membersList[i].phoneNumber}</div></td>
+                                <td class="orange"><div class="center">${membersList[i].card}</div></td>
+                                <td class="orange"><div class="center">${membersList[i].Group}</div></td>
                                 <td><div class="btn-group" >
                                         <button type="button"  class="btn btn-success updateBtn" onclick="setValuesForUpdate(${i})">Update</button>
                                         <button type="button"  class="btn btn-success  dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
@@ -309,37 +391,37 @@ function search() {
                                     </div>
                                 </td>
                             </tr>
-                        `
-            }
-            else {
-                cartona += `
+                            `
+                }
+                else {
+                    cartona += `
                             <tr>
-                                <td class="red"><div>${membersList[i].name}</div></td>
-                                <td class="red"><div>${(new Date(membersList[i].date)).toDateString()}</div></td>
-                                <td class="red"><div>${(new Date(membersList[i].expire)).toDateString()}</div></td>
-                                <td class="red"><div>${membersList[i].price}</div></td>
-                                <td class="red"><div>${membersList[i].notes}</div></td>
-                                <td class="red"><div>${membersList[i].Gym}</div></td>
-                                <td class="red"><div>${membersList[i].cardio}</div></td>
-                                <td class="red"><div>${membersList[i].sauna}</div></td>
-                                <td class="red"><div>${membersList[i].phoneNumber}</div></td>
-                                <td class="red"><div>${membersList[i].card}</div></td>
-                                <td class="red"><div>${membersList[i].Group}</div></td>
+                                <td class="green"><div>${membersList[i].name}</div></td>
+                                <td class="green"><div>${formattedDate}</div></td>
+                                <td class="green"><div>${formattedExpire}</div></td>
+                                <td class="green"><div>${membersList[i].price}</div></td>
+                                <td class="green"><div>${membersList[i].notes}</div></td>
+                                <td class="green"><div class="center">${membersList[i].Gym}</div></td>
+                                <td class="green"><div class="center">${membersList[i].cardio}</div></td>
+                                <td class="green"><div class="center">${membersList[i].sauna}</div></td>
+                                <td class="green"><div>${membersList[i].phoneNumber}</div></td>
+                                <td class="green"><div class="center">${membersList[i].card}</div></td>
+                                <td class="green"><div class="center">${membersList[i].Group}</div></td>
                                 <td><div class="btn-group" >
-                                        <button type="button"  class="btn btn-danger updateBtn" onclick="setValuesForUpdate(${i})">Update</button>
-                                        <button type="button"  class="btn btn-danger  dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button type="button"  class="btn btn-success updateBtn" onclick="setValuesForUpdate(${i})">Update</button>
+                                        <button type="button"  class="btn btn-success  dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="visually-hidden">Toggle Dropdown</span>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item dateLink" onclick="setValuesForUpdateTime(${i})">Update Date <i class="fa-regular fa-clock"></i></a></li>
-                                            <li><a class="dropdown-item renewalLink" onclick="setValuesForRenewal(${i})">Renewal <i class="fa-solid fa-arrow-rotate-left"></i></a></li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li><a class="dropdown-item " id="dlt-btn"  onclick="deleteMember(${i})" >Delete <i class="fa-solid fa-trash-can"></i></a></li>
                                         </ul>
                                     </div>
                                 </td>
                             </tr>
-        `
+                            `
+                }
             }
         }
     }
